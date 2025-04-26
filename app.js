@@ -80,8 +80,12 @@ btnPlayPause.addEventListener('click', reproducirPausar);
 function reproducirPausar() {
   if(cancion.paused){
     reproducirCancion();
+    iconoControl.classList.add('bi-pause');
+    iconoControl.classList.remove('bi-play');
   } else{
     pausarCancion();
+    iconoControl.classList.add('bi-play');
+    iconoControl.classList.remove('bi-pause');
   }
   
 };
