@@ -37,20 +37,10 @@ const canciones = [
     fuente: "music/ANYMA _ RÜFÜS DU SOL - You Make Me (Remake)(MP3_320K).mp3",
   },
   {
-    titulo: "Take on Me",
-    nombre: "a-ha",
-    fuente: "music/a-ha - Take On Me.mp3",
-  },
-  {
     titulo: "Ojitos Lindos",
     nombre: "Bad Bunny ft Bomba Estéreo",
     fuente:
       "music/Bad Bunny (ft. Bomba Estéreo) - Ojitos Lindos (360° Visualizer) _ Un Verano Sin Ti(MP3_320K).mp3",
-  },
-  {
-    titulo: "Take on Me",
-    nombre: "a-ha",
-    fuente: "music/a-ha - Take On Me.mp3",
   },
   {
     titulo: "Game of Thrones",
@@ -60,7 +50,7 @@ const canciones = [
   {
     titulo: "Injuria 2",
     nombre: "Uknown",
-    fuente: "music/inuria2(MP3_320K).mp3",
+    fuente: "music/inuria 2(MP3_320K).mp3",
   },
   {
     titulo: "Zero",
@@ -77,6 +67,12 @@ function actualizarInfoCancion() {
   cancion.src = canciones[indiceCancionActual].fuente;
   cancion.addEventListener("loadeddata", function () {});
 }
+
+//metadatos de la cancion
+cancion.addEventListener("loadeddata", () => {
+  progreso.max = cancion.duration;
+  progreso.value = cancion.currentTime;
+});
 
 btnPlayPause.addEventListener("click", reproducirPausar);
 
@@ -111,6 +107,21 @@ progreso.addEventListener("input", () => {
 });
 //esta funcion es para que la cancion inicie cuando la barra de progreso se mueve
 progreso.addEventListener("change", () => {
+  reproducirCancion();
+});
+
+//adelantar cancion
+botonSiguiente.addEventListener("click", () => {
+  indiceCancionActual = (indiceCancionActual + 1) % canciones.length;
+  actualizarInfoCancion();
+  reproducirCancion();
+});
+
+//retroceder cancion
+botonAtras.addEventListener("click", () => {
+  indiceCancionActual =
+    (indiceCancionActual - 1 + canciones.length) % canciones.length;
+  actualizarInfoCancion();
   reproducirCancion();
 });
 
