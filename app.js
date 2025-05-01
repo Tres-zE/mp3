@@ -2,6 +2,9 @@ const tituloCancion = document.querySelector(".reproductor-musica h1");
 const nombreArtista = document.querySelector(".reproductor-musica p");
 const portada = document.querySelector("#portada img");
 
+const currentTimeDisplay = document.getElementById("currentTime");
+const durationDisplay = document.getElementById("duration");
+
 const progreso = document.getElementById("progreso");
 const cancion = document.getElementById("cancion");
 
@@ -65,12 +68,26 @@ function actualizarInfoCancion() {
   tituloCancion.textContent = canciones[indiceCancionActual].titulo;
   nombreArtista.textContent = canciones[indiceCancionActual].nombre;
   cancion.src = canciones[indiceCancionActual].fuente;
-  cancion.addEventListener("loadeddata", function () {});
+  cancion.addEventListener("loadedmetadata", function () {});
 }
 
+//formato de tiempo
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+}
 //metadatos de la cancion
-cancion.addEventListener("loadeddata", () => {
+cancion.addEventListener("loadedmetadata", () => {
+  // progreso.max = cancion.duration;
+  // progreso.value = cancion.currentTime;
+  durationDisplay.textContent = formatTime(cancion.duration);
   progreso.max = cancion.duration;
+  console.log(cancion.duration);
+});
+
+cancion.addEventListener("timeupdate", () => {
+  currentTimeDisplay.textContent = formatTime(cancion.currentTime);
   progreso.value = cancion.currentTime;
 });
 
