@@ -77,6 +77,9 @@ body > * {
   width: 200px; /* Ancho fijo */
   height: 200px; /* Altura automática según la proporción de la imagen */
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #caratula-cancion {
